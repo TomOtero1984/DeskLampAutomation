@@ -1,0 +1,9 @@
+.vscode/
+.metadata/
+build/
+mcpwm_servo_control/
+simple/
+test_mcpwm_servo_control/build
+test_mcpwm_servo_control/esp_idf_components
+vscode/build/
+vscode/.vscode
