@@ -1,7 +1,8 @@
 param([switch] $help = $False,
       [string] $port = "COM8",
       [switch] $do_build=$False, 
-      [switch] $do_clean=$False, 
+      [switch] $do_clean=$False,
+      [switch] $do_rebuild=$False,
       [switch] $do_flash=$False,
       [switch] $do_monitor=$False,
       [switch] $do_test=$False)
@@ -73,6 +74,12 @@ function ESP_Monitor {
     }
 }
 
+function ESP_Rebuild {
+    ESP-Write-Host("Starting Rebuild...")
+    ESP_Clean
+    ESP_Build
+}
+
 function _set_sdk_wifi_password {
     $config = $config_original.Replace("WIFI_SSID_PLACEHOLDER", $network_name)
     $config = $config.Replace("WIFI_PASSWORD_PLACEHOLDER", $wireless_password)
@@ -121,6 +128,9 @@ ESP_TOOL is a wrapper for the ESP idf.py tool.
     }
     elseif ($do_clean){
         ESP_Clean
+    }
+    elseif ($do_rebuild){
+        ESP_Rebuild
     }
     elseif ($do_flash){
         GetOnePasswordInfo
