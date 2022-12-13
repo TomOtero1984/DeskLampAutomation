@@ -1,4 +1,4 @@
-#include "motor_error.h"
+#include "../include/motor_error.h"
 
 int get_error_code(MotorError* motor_error){
     return motor_error->error_code;

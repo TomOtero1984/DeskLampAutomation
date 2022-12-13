@@ -20,8 +20,9 @@
 #include "protocol_examples_common.h"
 // PWM
 #include "driver/mcpwm.h"
-//
+// Motor
 #include "../include/motor.h"
+#include "../include/motor_error.h"
 
 static const char *TAG = "motor_controller";
 
@@ -460,13 +461,13 @@ void app_main(void)
     esp_log_level_set("*", ESP_LOG_INFO);
 
     // Motor Init
-    Motor motors[NUM_MOTORS] = {{"MCPWM0A", MOTSTT_IDLE, MOTACT_NONE, 
+    Motor motors[NUM_MOTORS] = {{"MCPWM0A", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR, 
                             {CW, MCPWM_UNIT_0, MCPWM0A, SERVO_PULSE_GPIO[0]}},
-                         {"MCPWM0B", MOTSTT_IDLE, MOTACT_NONE, 
+                         {"MCPWM0B", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
                             {CCW, MCPWM_UNIT_0, MCPWM0B, SERVO_PULSE_GPIO[1]}},
-                         {"MCPWM1A", MOTSTT_IDLE, MOTACT_NONE, 
+                         {"MCPWM1A", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
                             {CCW, MCPWM_UNIT_0, MCPWM1A, SERVO_PULSE_GPIO[2]}},
-                         {"MCPWM1B", MOTSTT_IDLE, MOTACT_NONE, 
+                         {"MCPWM1B", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
                             {CW, MCPWM_UNIT_0, MCPWM1B, SERVO_PULSE_GPIO[3]}}};
 
 

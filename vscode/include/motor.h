@@ -1,10 +1,3 @@
-/*
-motor.h
-
-The motor 
-*/
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -12,7 +5,7 @@ extern "C" {
 #pragma once
 
 #include <stdbool.h>
-#include "motor_error.h"
+#include "../include/motor_error.h"
 
 #define CW 0
 #define CCW 1
