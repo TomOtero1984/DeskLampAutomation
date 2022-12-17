@@ -57,7 +57,15 @@ static void motor_task(void *arg)
         vTaskDelay(pdMS_TO_TICKS(100)); //Add delay, since it takes time for servo to rotate, generally 100ms/60degree rotation under 5V power supply
     }
     vTaskDelete(NULL);
-} 
+}
+
+static void print_motor_task(Motor* motor){
+    ESP_LOGI(TAG,"Motor name: %s",motor->name);
+    ESP_LOGI(TAG,"Motor action: %s",motor->action);
+    ESP_LOGI(TAG,"Motor error: %s",motor->error);
+    ESP_LOGI(TAG,"Motor config: %s",motor->config);
+    vTaskDelete(NULL);
+}
 
 
 // Http Server
@@ -360,6 +368,8 @@ static esp_err_t motor_api_handler(httpd_req_t *req) {
     buf_len = httpd_req_get_url_query_len(req) + 1;
     if (buf_len > 1) {
         buf = malloc(buf_len);
+        char* name;
+        char* action;
         if (httpd_req_get_url_query_str(req, buf, buf_len) == ESP_OK) {
             ESP_LOGI(TAG, "Found URL query => %s", buf);
             char param[32];
@@ -371,6 +381,7 @@ static esp_err_t motor_api_handler(httpd_req_t *req) {
                 ESP_LOGI(TAG, "Found URL query parameter => action=%s", param);
             }
         }
+
         free(buf);
     }
 
@@ -399,7 +410,7 @@ static const httpd_uri_t motor_api = {
 };
 
 
-
+///// Webserver /////
 static httpd_handle_t start_webserver(void)
 {
     httpd_handle_t server = NULL;
@@ -432,6 +443,7 @@ static void stop_webserver(httpd_handle_t server)
     httpd_stop(server);
 }
 
+///// Handler /////
 static void disconnect_handler(void* arg, esp_event_base_t event_base,
                                int32_t event_id, void* event_data)
 {
@@ -453,6 +465,13 @@ static void connect_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
+
+///// General Functions /////
+Motor find_motor_by_name(Motor* motors, char* name){
+
+}
+
+///// Main /////
 void app_main(void)
 {
 	ESP_LOGI(TAG, "[APP] Startup..");

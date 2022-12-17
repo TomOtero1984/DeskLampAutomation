@@ -50,7 +50,7 @@ function ESP_Build {
 
 function ESP_Clean {
     # Remove-Item -Force -Recurse -Path "$proj_dir\build"
-    ESP-Write-Host("Starting Full clean...")
+    ESP-Write-Host("Starting full clean...")
     $py_args = "fullclean"
     & {
         Set-Location $proj_dir 
@@ -59,7 +59,7 @@ function ESP_Clean {
 }
 
 function ESP_Flash {
-    ESP-Write-Host("Starting Flash...")
+    ESP-Write-Host("Starting flash...")
     & {
         Set-Location $proj_dir
         python "$env:IDF_PATH\tools\idf.py" -p $port flash
@@ -67,7 +67,7 @@ function ESP_Flash {
 }
 
 function ESP_Monitor {
-    ESP-Write-Host("Starting Monitor...")
+    ESP-Write-Host("Starting monitor...")
     & {
         Set-Location $proj_dir 
         python "$env:IDF_PATH\tools\idf_monitor.py" -p $port -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 "$proj_dir\build\vscode.elf"
@@ -75,7 +75,7 @@ function ESP_Monitor {
 }
 
 function ESP_Rebuild {
-    ESP-Write-Host("Starting Rebuild...")
+    ESP-Write-Host("Starting rebuild...")
     ESP_Clean
     ESP_Build
 }
