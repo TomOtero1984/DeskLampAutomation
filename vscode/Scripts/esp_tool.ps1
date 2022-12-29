@@ -10,7 +10,7 @@ param([switch] $help = $False,
 
 
 $idf_py_path = "$env:IDF_PATH\tools\idf.py"
-$proj_dir = "E:\Projects\home_automation\DeskLampAutomation\vscode"
+$proj_dir = "$env:DESK_LAMP_AUTOMATION_DIR\vscode"
 $config_original = Get-Content "$proj_dir\sdkconfig"
 $network_name, $wireless_password
 
