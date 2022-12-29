@@ -4,7 +4,7 @@ extern "C" {
 
 #pragma once
 // Local
-#include "motor.h"
+#include "../include/motor.h"
 
 
 #define SERVO_MIN_PULSEWIDTH_US (1000) // Minimum pulse width in microsecond
@@ -14,7 +14,6 @@ extern "C" {
 #define SERVO_MAX_DEGREE        (180)  // Maximum angle in degree upto which servo can rotate
 #define SERVO_PULSE_GPIO        (int[]){16,17,18,19}   // GPIO connects to the PWM signal line
 
-static const char *TAG = "motor_controller";
 
 
 /*

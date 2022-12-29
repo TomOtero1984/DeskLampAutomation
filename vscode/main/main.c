@@ -1,40 +1,4 @@
-// Standard
-#include <stdio.h>
-#include <sys/param.h>
-#include "nvs_flash.h"
-// FreeRTOS
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "freertos/event_groups.h"
-// ESP Common
-#include "esp_system.h"
-#include "esp_log.h"
-// ESP WIFI 
-#include "esp_wifi.h"
-#include "esp_event.h"
-#include "esp_netif.h"
-#include "esp_eth.h"
-#include "esp_tls_crypto.h"
-#include <esp_http_server.h>
-#include "protocol_examples_common.h"
-// PWM
-#include "driver/mcpwm.h"
-// Motor
-#include "../include/motor.h"
-#include "../include/motor_error.h"
-
-static const char *TAG = "motor_controller";
-
-
-// Motor Control
-#define SERVO_MIN_PULSEWIDTH_US (1000) // Minimum pulse width in microsecond
-#define SERVO_MAX_PULSEWIDTH_US (2800) // Maximum pulse width in microsecond
-#define SERVO_MAX_DEGREE        (90)   // Maximum angle in degree upto which servo can rotate
-#define SERVO_PULSE_GPIO        (int[]){16,17,18,19}   // GPIO connects to the PWM signal line
-#define NUM_MOTORS              (4)
-
-
+#include "main.h"
 
 
 static mcpwm_config_t pwm_config = {
@@ -44,26 +8,29 @@ static mcpwm_config_t pwm_config = {
     .duty_mode = MCPWM_DUTY_MODE_0,
 };
 
-static inline uint32_t example_convert_servo_angle_to_duty_us(int angle)
-{
-    return (angle + SERVO_MAX_DEGREE) * (SERVO_MAX_PULSEWIDTH_US - SERVO_MIN_PULSEWIDTH_US) / (2 * SERVO_MAX_DEGREE) + SERVO_MIN_PULSEWIDTH_US;
-}
+// static void task_motor(void *arg)
+// {
+//     for (int angle = SERVO_MAX_DEGREE; angle > -SERVO_MAX_DEGREE; angle--) {
+//         ESP_LOGI(TAG, "Angle of rotation: %d", angle);
+//         ESP_ERROR_CHECK(mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, 
+//                         MCPWM0A, convert_servo_angle_to_duty_us(angle)));
+//         vTaskDelay(pdMS_TO_TICKS(100)); //Add delay, since it takes time for servo to rotate, generally 100ms/60degree rotation under 5V power supply
+//     }
+//     vTaskDelete(NULL);
+// }
 
-static void motor_task(void *arg)
-{
-    for (int angle = SERVO_MAX_DEGREE; angle > -SERVO_MAX_DEGREE; angle--) {
-        ESP_LOGI(TAG, "Angle of rotation: %d", angle);
-        ESP_ERROR_CHECK(mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0A, example_convert_servo_angle_to_duty_us(angle)));
-        vTaskDelay(pdMS_TO_TICKS(100)); //Add delay, since it takes time for servo to rotate, generally 100ms/60degree rotation under 5V power supply
-    }
+static void task_print_motor(void* xMotor){
+    Motor* motor = (Motor*) xMotor;
+    ESP_LOGI(TAG,"Motor name: %s",motor->name);
+    ESP_LOGI(TAG,"Motor action: %d",motor->action);
+    // ESP_LOGI(TAG,"Motor error: %d",motor->error);
+    // ESP_LOGI(TAG,"Motor config: %s",motor->config);
     vTaskDelete(NULL);
 }
 
-static void print_motor_task(Motor* motor){
-    ESP_LOGI(TAG,"Motor name: %s",motor->name);
-    ESP_LOGI(TAG,"Motor action: %s",motor->action);
-    ESP_LOGI(TAG,"Motor error: %s",motor->error);
-    ESP_LOGI(TAG,"Motor config: %s",motor->config);
+static void task_execute_motor_command(void* xMotor){
+    Motor* motor = (Motor*) xMotor;
+    execute_motor_command(motor);
     vTaskDelete(NULL);
 }
 
@@ -264,90 +231,104 @@ static const httpd_uri_t ctrl = {
 
 
 /* Motor API*/
-static esp_err_t motor_test_handler(httpd_req_t *req) {
-    xTaskCreate(motor_task, "motor_task_0", 1024 * 2, (void *)0, 10, NULL);
+// static esp_err_t motor_test_handler(httpd_req_t *req) {
+//     xTaskCreate(task_motor, "motor_task_0", 1024 * 2, (void *)0, 10, NULL);
 
-    char*  buf;
-    size_t buf_len;
+//     char*  buf;
+//     size_t buf_len;
     
-    /* Get header value string length and allocate memory for length + 1,
-     * extra byte for null termination */
-    buf_len = httpd_req_get_hdr_value_len(req, "Host") + 1;
-    if (buf_len > 1) {
-        buf = malloc(buf_len);
-        /* Copy null terminated value string into buffer */
-        if (httpd_req_get_hdr_value_str(req, "Host", buf, buf_len) == ESP_OK) {
-            ESP_LOGI(TAG, "Found header => Host: %s", buf);
-        }
-        free(buf);
-    }
+//     /* Get header value string length and allocate memory for length + 1,
+//      * extra byte for null termination */
+//     buf_len = httpd_req_get_hdr_value_len(req, "Host") + 1;
+//     if (buf_len > 1) {
+//         buf = malloc(buf_len);
+//         /* Copy null terminated value string into buffer */
+//         if (httpd_req_get_hdr_value_str(req, "Host", buf, buf_len) == ESP_OK) {
+//             ESP_LOGI(TAG, "Found header => Host: %s", buf);
+//         }
+//         free(buf);
+//     }
 
-    buf_len = httpd_req_get_hdr_value_len(req, "Test-Header-2") + 1;
-    if (buf_len > 1) {
-        buf = malloc(buf_len);
-        if (httpd_req_get_hdr_value_str(req, "Test-Header-2", buf, buf_len) == ESP_OK) {
-            ESP_LOGI(TAG, "Found header => Test-Header-2: %s", buf);
-        }
-        free(buf);
-    }
+//     buf_len = httpd_req_get_hdr_value_len(req, "Test-Header-2") + 1;
+//     if (buf_len > 1) {
+//         buf = malloc(buf_len);
+//         if (httpd_req_get_hdr_value_str(req, "Test-Header-2", buf, buf_len) == ESP_OK) {
+//             ESP_LOGI(TAG, "Found header => Test-Header-2: %s", buf);
+//         }
+//         free(buf);
+//     }
 
-    buf_len = httpd_req_get_hdr_value_len(req, "Test-Header-1") + 1;
-    if (buf_len > 1) {
-        buf = malloc(buf_len);
-        if (httpd_req_get_hdr_value_str(req, "Test-Header-1", buf, buf_len) == ESP_OK) {
-            ESP_LOGI(TAG, "Found header => Test-Header-1: %s", buf);
-        }
-        free(buf);
-    }
+//     buf_len = httpd_req_get_hdr_value_len(req, "Test-Header-1") + 1;
+//     if (buf_len > 1) {
+//         buf = malloc(buf_len);
+//         if (httpd_req_get_hdr_value_str(req, "Test-Header-1", buf, buf_len) == ESP_OK) {
+//             ESP_LOGI(TAG, "Found header => Test-Header-1: %s", buf);
+//         }
+//         free(buf);
+//     }
 
-    /* Read URL query string length and allocate memory for length + 1,
-     * extra byte for null termination */
-    buf_len = httpd_req_get_url_query_len(req) + 1;
-    if (buf_len > 1) {
-        buf = malloc(buf_len);
-        if (httpd_req_get_url_query_str(req, buf, buf_len) == ESP_OK) {
-            ESP_LOGI(TAG, "Found URL query => %s", buf);
-            char param[32];
-            /* Get value of expected key from query string */
-            if (httpd_query_key_value(buf, "query1", param, sizeof(param)) == ESP_OK) {
-                ESP_LOGI(TAG, "Found URL query parameter => query1=%s", param);
-            }
-            if (httpd_query_key_value(buf, "query3", param, sizeof(param)) == ESP_OK) {
-                ESP_LOGI(TAG, "Found URL query parameter => query3=%s", param);
-            }
-            if (httpd_query_key_value(buf, "query2", param, sizeof(param)) == ESP_OK) {
-                ESP_LOGI(TAG, "Found URL query parameter => query2=%s", param);
-            }
-        }
-        free(buf);
-    }
+//     /* Read URL query string length and allocate memory for length + 1,
+//      * extra byte for null termination */
+//     buf_len = httpd_req_get_url_query_len(req) + 1;
+//     if (buf_len > 1) {
+//         buf = malloc(buf_len);
+//         if (httpd_req_get_url_query_str(req, buf, buf_len) == ESP_OK) {
+//             ESP_LOGI(TAG, "Found URL query => %s", buf);
+//             char param[32];
+//             /* Get value of expected key from query string */
+//             if (httpd_query_key_value(buf, "query1", param, sizeof(param)) == ESP_OK) {
+//                 ESP_LOGI(TAG, "Found URL query parameter => query1=%s", param);
+//             }
+//             if (httpd_query_key_value(buf, "query3", param, sizeof(param)) == ESP_OK) {
+//                 ESP_LOGI(TAG, "Found URL query parameter => query3=%s", param);
+//             }
+//             if (httpd_query_key_value(buf, "query2", param, sizeof(param)) == ESP_OK) {
+//                 ESP_LOGI(TAG, "Found URL query parameter => query2=%s", param);
+//             }
+//         }
+//         free(buf);
+//     }
 
-    /* Set some custom headers */
-    httpd_resp_set_hdr(req, "Custom-Header-1", "Custom-Value-1");
-    httpd_resp_set_hdr(req, "Custom-Header-2", "Custom-Value-2");
+//     /* Set some custom headers */
+//     httpd_resp_set_hdr(req, "Custom-Header-1", "Custom-Value-1");
+//     httpd_resp_set_hdr(req, "Custom-Header-2", "Custom-Value-2");
 
-    /* Send response with custom headers and body set as the
-     * string passed in user context*/
-    const char* resp_str = (const char*) req->user_ctx;
-    httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
+//     /* Send response with custom headers and body set as the
+//      * string passed in user context*/
+//     const char* resp_str = (const char*) req->user_ctx;
+//     httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
 
-    /* After sending the HTTP response the old HTTP request
-     * headers are lost. Check if HTTP request headers can be read now. */
-    if (httpd_req_get_hdr_value_len(req, "Host") == 0) {
-        ESP_LOGI(TAG, "Request headers lost");
-    }
+//     /* After sending the HTTP response the old HTTP request
+//      * headers are lost. Check if HTTP request headers can be read now. */
+//     if (httpd_req_get_hdr_value_len(req, "Host") == 0) {
+//         ESP_LOGI(TAG, "Request headers lost");
+//     }
     
-    return ESP_OK;
+//     return ESP_OK;
+// }
+
+// static const httpd_uri_t motor_test = {
+//     .uri       = "/motor_test",
+//     .method    = HTTP_GET,
+//     .handler   = motor_test_handler,
+//     .user_ctx  = "Motor Test"
+// };
+
+static int motor_api_handler(char* name, char* action){
+    int status = 0;
+
+    // Get motor
+    Motor* xMotor = find_motor_by_name(name);
+    // Send motor action
+
+    // Wait for motor to complete action
+
+    // Save motor status message in motor
+
+    return status;
 }
 
-static const httpd_uri_t motor_test = {
-    .uri       = "/motor_test",
-    .method    = HTTP_GET,
-    .handler   = motor_test_handler,
-    .user_ctx  = "Motor Test"
-};
-
-static esp_err_t motor_api_handler(httpd_req_t *req) {
+static esp_err_t motor_api_request_handler(httpd_req_t *req) {
     char*  buf;
     size_t buf_len;
 
@@ -368,26 +349,34 @@ static esp_err_t motor_api_handler(httpd_req_t *req) {
     buf_len = httpd_req_get_url_query_len(req) + 1;
     if (buf_len > 1) {
         buf = malloc(buf_len);
-        char* name;
-        char* action;
+        char name[32] = "";
+        char action[32] = "";
         if (httpd_req_get_url_query_str(req, buf, buf_len) == ESP_OK) {
             ESP_LOGI(TAG, "Found URL query => %s", buf);
             char param[32];
             /* Get value of expected key from query string */
             if (httpd_query_key_value(buf, "name", param, sizeof(param)) == ESP_OK) {
-                ESP_LOGI(TAG, "Found URL query parameter => name=%s", param);
+                memset(name, '\0', sizeof(name));
+                strcpy(name, param);
+                ESP_LOGI(TAG, "Found URL query parameter => name=%s", name);
+                
             }
             if (httpd_query_key_value(buf, "action", param, sizeof(param)) == ESP_OK) {
-                ESP_LOGI(TAG, "Found URL query parameter => action=%s", param);
+                memset(action, '\0', sizeof(action));
+                strcpy(action, param);
+                ESP_LOGI(TAG, "Found URL query parameter => action=%s", action);
+                
             }
         }
+        
+        motor_api_handler(name, action);
+        // xTaskCreate(task_print_motor, "print_motor_task_0", 1024 * 2, (void *) xMotor, 10, NULL);
 
         free(buf);
     }
 
     /* Set some custom headers */
-    httpd_resp_set_hdr(req, "Custom-Header-1", "Custom-Value-1");
-    httpd_resp_set_hdr(req, "Custom-Header-2", "Custom-Value-2");
+    httpd_resp_set_hdr(req, "Motor-API", "Custom-Value-1");
 
     /* Send response with custom headers and body set as the
      * string passed in user context*/
@@ -405,7 +394,7 @@ static esp_err_t motor_api_handler(httpd_req_t *req) {
 static const httpd_uri_t motor_api = {
     .uri       = "/motor_api",
     .method    = HTTP_GET,
-    .handler   = motor_api_handler,
+    .handler   = motor_api_request_handler,
     .user_ctx  = "Motor API" 
 };
 
@@ -425,7 +414,7 @@ static httpd_handle_t start_webserver(void)
         httpd_register_uri_handler(server, &hello);
         httpd_register_uri_handler(server, &echo);
         httpd_register_uri_handler(server, &ctrl);
-        httpd_register_uri_handler(server, &motor_test);
+        // httpd_register_uri_handler(server, &motor_test);
         httpd_register_uri_handler(server, &motor_api);
         #if CONFIG_EXAMPLE_BASIC_AUTH
         httpd_register_basic_auth(server);
@@ -467,45 +456,64 @@ static void connect_handler(void* arg, esp_event_base_t event_base,
 
 
 ///// General Functions /////
-Motor find_motor_by_name(Motor* motors, char* name){
-
+Motor* find_motor_by_name(char* name){
+    bool found_motor = false;
+    char* check_name;
+    ESP_LOGI(TAG, "[DEBUG] Looking for %s", name);
+    int mtr_idx = 0;
+    for(mtr_idx = 0; mtr_idx < NUM_MOTORS; mtr_idx++){
+        check_name = MOTORS[mtr_idx].name;
+        ESP_LOGI(TAG, "[DEBUG] Checking motor name: %s", check_name);
+        if(strcmp(check_name, name) == 0){
+            found_motor = true;
+            break;
+        }
+    }
+    return &MOTORS[mtr_idx];
 }
 
 ///// Main /////
+/*
+Entry for ESP
+*/
 void app_main(void)
 {
 	ESP_LOGI(TAG, "[APP] Startup..");
-    ESP_LOGI(TAG, "[APP] Free memory: %d bytes", esp_get_free_heap_size());
+    ESP_LOGI(TAG, "[APP] Free memory: %lu bytes", esp_get_free_heap_size());
     ESP_LOGI(TAG, "[APP] IDF version: %s", esp_get_idf_version());
     esp_log_level_set("*", ESP_LOG_INFO);
 
-    // Motor Init
-    Motor motors[NUM_MOTORS] = {{"MCPWM0A", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR, 
-                            {CW, MCPWM_UNIT_0, MCPWM0A, SERVO_PULSE_GPIO[0]}},
-                         {"MCPWM0B", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
-                            {CCW, MCPWM_UNIT_0, MCPWM0B, SERVO_PULSE_GPIO[1]}},
-                         {"MCPWM1A", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
-                            {CCW, MCPWM_UNIT_0, MCPWM1A, SERVO_PULSE_GPIO[2]}},
-                         {"MCPWM1B", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
-                            {CW, MCPWM_UNIT_0, MCPWM1B, SERVO_PULSE_GPIO[3]}}};
+
+    // MOTORS Init
+    /*
+    Array of motors
+    */   
+    MOTORS[0] = (Motor) {"MCPWM0A", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR, 
+                         {CW, MCPWM_UNIT_0, MCPWM0A, SERVO_PULSE_GPIO[0]}};                            
+    MOTORS[1] = (Motor) {"MCPWM0B", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
+                         {CCW, MCPWM_UNIT_0, MCPWM0B, SERVO_PULSE_GPIO[1]}};
+    MOTORS[2] = (Motor) {"MCPWM1A", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
+                         {CCW, MCPWM_UNIT_0, MCPWM1A, SERVO_PULSE_GPIO[2]}};
+    MOTORS[3] = (Motor) {"MCPWM1B", MOTSTT_IDLE, MOTACT_NONE, MOTERR_NO_ERROR,
+                         {CW, MCPWM_UNIT_0, MCPWM1B, SERVO_PULSE_GPIO[3]}};
 
 
-    //PWM Init
-    mcpwm_gpio_init(motors[0].config.pwm_unit, 
-                    motors[0].config.pwm_pin, 
-                    motors[0].config.gpio);
+    // PWM Init
+    mcpwm_gpio_init(MOTORS[0].config.pwm_unit, 
+                    MOTORS[0].config.pwm_pin, 
+                    MOTORS[0].config.gpio);
 
-    mcpwm_gpio_init(motors[1].config.pwm_unit, 
-                    motors[1].config.pwm_pin, 
-                    motors[1].config.gpio);
+    mcpwm_gpio_init(MOTORS[1].config.pwm_unit, 
+                    MOTORS[1].config.pwm_pin, 
+                    MOTORS[1].config.gpio);
 
-    mcpwm_gpio_init(motors[2].config.pwm_unit, 
-                    motors[2].config.pwm_pin, 
-                    motors[2].config.gpio);
+    mcpwm_gpio_init(MOTORS[2].config.pwm_unit, 
+                    MOTORS[2].config.pwm_pin, 
+                    MOTORS[2].config.gpio);
                     
-    mcpwm_gpio_init(motors[3].config.pwm_unit, 
-                    motors[3].config.pwm_pin, 
-                    motors[3].config.gpio);
+    mcpwm_gpio_init(MOTORS[3].config.pwm_unit, 
+                    MOTORS[3].config.pwm_pin, 
+                    MOTORS[3].config.gpio);
 
     // [TODO] Update with the init to support multiple pwm units
     mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_0, &pwm_config);

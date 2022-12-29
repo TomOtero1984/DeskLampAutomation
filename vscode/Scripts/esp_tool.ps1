@@ -5,12 +5,12 @@ param([switch] $help = $False,
       [switch] $do_rebuild=$False,
       [switch] $do_flash=$False,
       [switch] $do_monitor=$False,
+      [switch] $do_export=$False,
       [switch] $do_test=$False)
 
 
-$activate_path = "$env:IDF_PYTHON_PATH\Scripts\activate.ps1"
 $idf_py_path = "$env:IDF_PATH\tools\idf.py"
-$proj_dir = "D:\Projects\home_automation\DeskLampAutomation\vscode"
+$proj_dir = "E:\Projects\home_automation\DeskLampAutomation\vscode"
 $config_original = Get-Content "$proj_dir\sdkconfig"
 $network_name, $wireless_password
 
@@ -23,9 +23,13 @@ function ESP-Write-Host {
     Write-Host " " $msg
 }
 
+function ESP_Export{
+    Invoke-Expression "$env:IDF_PATH\export.ps1"
+}
+
 function ESP_Activate {
     ESP-Write-Host("Activating build environment")
-    & $activate_path
+    Invoke-Expression "$env:IDF_PYTHON_PATH\Scripts\activate.ps1"
     
     ESP-Write-Host("Checking Python path...")
     if (-not ($(Get-Command python).Path.Contains($env:IDF_PYTHON_PATH))){
@@ -91,7 +95,7 @@ function _set_sdk_wifi_placeholder {
 }
 
 function GetOnePasswordInfo {
-    $res = op item get v7njrl6l76mqhmoy62zssqnitq --format json | ConvertFrom-Json
+    $res = op item get $env:OP_WIFI_ID --format json | ConvertFrom-Json
     $network_name, $wireless_password
     for ($i=0; $i -lt $res.fields.length; $i++){
         if ($res.fields[$i].id -eq "network_name") {
@@ -103,25 +107,34 @@ function GetOnePasswordInfo {
     }
 }
 
+function WriteHelp{
+    ESP-Write-Host("
+    *****************
+    *** Help Menu ***
+    *****************
+    Description
+    -----------
+    ESP_TOOL is a wrapper for the ESP idf.py tool.
+    
+    -port       : Defines the port to use 
+    -do_build   : Runs the build
+    -do_clean   : Cleans the build dir
+    -do_flash   : Flashes the device defined in esp_tool.ps1
+    -do_monitor : Monitors the ESP device through serial
+    -do_all     : Cleans, builds, flashes, monitors 
+    -do_test    : Test command for script
+    ")
+}
+
+
+
+if($do_export){
+    ESP_Export
+}
 ESP_Activate
 try {
     if($help){
-        ESP-Write-Host("
-*****************
-*** Help Menu ***
-*****************
-Description
------------
-ESP_TOOL is a wrapper for the ESP idf.py tool.
-
--port       : Defines the port to use 
--do_build   : Runs the build
--do_clean   : Cleans the build dir
--do_flash   : Flashes the device defined in esp_tool.ps1
--do_monitor : Monitors the ESP device through serial
--do_all     : Cleans, builds, flashes, monitors 
--do_test    : Test command for script
-")
+        WriteHelp
     }
     elseif ($do_build){
         ESP_Build
@@ -149,6 +162,9 @@ ESP_TOOL is a wrapper for the ESP idf.py tool.
     }
     elseif ($do_test){
         $PSCommandPath
+    }
+    else{
+        WriteHelp
     }
 }
 catch {

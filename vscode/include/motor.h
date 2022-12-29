@@ -3,15 +3,35 @@ extern "C" {
 #endif
 
 #pragma once
-
+// STDLIB
 #include <stdbool.h>
+#include <stdbool.h>
+#include <errno.h>
+
+// FreeRTOS
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+// ESP
+#include "esp_log.h"
+#include "driver/mcpwm.h"
+// Local
 #include "../include/motor_error.h"
+#include "../include/esp_logger.h"
 
 #define CW 0
 #define CCW 1
 #define BLANK_MOTOR_CONFIG struct {-1, -1, -1, -1}
 
-///// Enums /////
+
+
+#define SERVO_MIN_PULSEWIDTH_US (1000) // Minimum pulse width in microsecond
+#define SERVO_MAX_PULSEWIDTH_US (2000) // Maximum pulse width in microsecond
+#define SERVO_MIN_DEGREE        (0)    // Minimum angle in degree upto which servo can rotate
+#define SERVO_MID_DEGREE        (90)   // Middle angle in degree upto which servo can rotate
+#define SERVO_MAX_DEGREE        (180)  // Maximum angle in degree upto which servo can rotate
+#define SERVO_PULSE_GPIO        (int[]){16,17,18,19}   // GPIO connects to the PWM signal line
+
+
 /*
 [MotorState]
 Enum for describing various motor states
@@ -84,19 +104,25 @@ typedef struct {
     MotorConfig config;
 } Motor;
 
-///// General Methods /////
-bool check_valid_enum(int val, int end);
-
-///// Getters /////
 char* get_motor_state(Motor* motor);
-char* get_motor_action(Motor* motor);
-
-
-///// Setters /////
 int set_motor_state(Motor* motor, MotorState state);
+
+char* get_motor_action(Motor* motor);
 int set_motor_action(Motor* motor, MotorAction action);
 
 
+inline uint32_t convert_servo_angle_to_duty_us(int angle);
+int motor_move_min(Motor* motor);
+int motor_move_max(Motor* motor);
+
+int motor_press(Motor* motor);
+int motor_release(Motor* motor);
+
+
+
+bool check_valid_enum(int val, int end);
+
+int execute_motor_command(Motor* motor);
 
 #ifdef __cplusplus
 }
