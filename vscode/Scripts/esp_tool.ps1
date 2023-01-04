@@ -1,5 +1,5 @@
 param([switch] $help = $False,
-      [string] $port = "COM5",
+      [string] $port = "COM8",
       [switch] $do_build=$False, 
       [switch] $do_clean=$False,
       [switch] $do_rebuild=$False,

@@ -2,7 +2,6 @@
 
 // Standard
 #include <stdio.h>
-#include <string.h>
 #include <sys/param.h>
 // FreeRTOS
 #include "freertos/FreeRTOS.h"
@@ -30,14 +29,10 @@
 
 static Motor MOTORS[NUM_MOTORS]; 
 
+static void task_motor_test(void *arg);
+static void task_print_motor(void* xMotor);
+static void task_execute_motor_command(void* xMotor);
+
 static int motor_api_handler(char* name, char* action);
 static esp_err_t motor_api_request_handler(httpd_req_t *req);
- 
-/* 
-[get_motor_index_by_name]
-Returns the index for the motor based on a char* name
-
-If name is not found, returns -1
-*/
-int get_motor_index_by_name(char* name);
-Motor* get_motor(int index);
+Motor* find_motor_by_name(char* name);
