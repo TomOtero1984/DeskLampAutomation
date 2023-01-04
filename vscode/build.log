@@ -1,0 +1,251 @@
+[ESP_TOOLS]
+  Activating build environment
+[ESP_TOOLS]
+  Checking Python path...
+[ESP_TOOLS]
+  Python path is valid
+[ESP_TOOLS]
+  Starting build...
+Executing action: all (aliases: build)
+Running ninja in directory e:\projects\home_automation\desklampautomation\vscode\build
+Executing "ninja all"...
+[1/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/motor.c.obj
+
+FAILED: esp-idf/main/CMakeFiles/__idf_main.dir/motor.c.obj 
+
+C:\Espressif\tools\tools\xtensa-esp32-elf\esp-2022r1-11.2.0\xtensa-esp32-elf\bin\xtensa-esp32-elf-gcc.exe -DMBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\" -DUNITY_INCLUDE_CONFIG_H -IE:/Projects/home_automation/DeskLampAutomation/vscode/build/config -IE:/Projects/home_automation/DeskLampAutomation/vscode/main -IC:/Espressif/esp-idf-v5.0/components/newlib/platform_include -IC:/Espressif/esp-idf-v5.0/components/freertos/FreeRTOS-Kernel/include -IC:/Espressif/esp-idf-v5.0/components/freertos/esp_additions/include/freertos -IC:/Espressif/esp-idf-v5.0/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -IC:/Espressif/esp-idf-v5.0/components/freertos/esp_additions/include -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/include -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/include/soc -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/include/soc/esp32 -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/port/esp32/. -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/port/esp32/private_include -IC:/Espressif/esp-idf-v5.0/components/heap/include -IC:/Espressif/esp-idf-v5.0/components/log/include -IC:/Espressif/esp-idf-v5.0/components/soc/include -IC:/Espressif/esp-idf-v5.0/components/soc/esp32/. -IC:/Espressif/esp-idf-v5.0/components/soc/esp32/include -IC:/Espressif/esp-idf-v5.0/components/hal/esp32/include -IC:/Espressif/esp-idf-v5.0/components/hal/include -IC:/Espressif/esp-idf-v5.0/components/hal/platform_port/include -IC:/Espressif/esp-idf-v5.0/components/esp_rom/include -IC:/Espressif/esp-idf-v5.0/components/esp_rom/include/esp32 -IC:/Espressif/esp-idf-v5.0/components/esp_rom/esp32 -IC:/Espressif/esp-idf-v5.0/components/esp_common/include -IC:/Espressif/esp-idf-v5.0/components/esp_system/include -IC:/Espressif/esp-idf-v5.0/components/esp_system/port/soc -IC:/Espressif/esp-idf-v5.0/components/esp_system/port/include/private -IC:/Espressif/esp-idf-v5.0/components/xtensa/include -IC:/Espressif/esp-idf-v5.0/components/xtensa/esp32/include -IC:/Espressif/esp-idf-v5.0/components/lwip/include -IC:/Espressif/esp-idf-v5.0/components/lwip/include/apps -IC:/Espressif/esp-idf-v5.0/components/lwip/include/apps/sntp -IC:/Espressif/esp-idf-v5.0/components/lwip/lwip/src/include -IC:/Espressif/esp-idf-v5.0/components/lwip/port/esp32/include -IC:/Espressif/esp-idf-v5.0/components/lwip/port/esp32/include/arch -IC:/Espressif/esp-idf-v5.0/components/esp_ringbuf/include -IC:/Espressif/esp-idf-v5.0/components/efuse/include -IC:/Espressif/esp-idf-v5.0/components/efuse/esp32/include -IC:/Espressif/esp-idf-v5.0/components/driver/include -IC:/Espressif/esp-idf-v5.0/components/driver/deprecated -IC:/Espressif/esp-idf-v5.0/components/driver/esp32/include -IC:/Espressif/esp-idf-v5.0/components/esp_pm/include -IC:/Espressif/esp-idf-v5.0/components/mbedtls/port/include -IC:/Espressif/esp-idf-v5.0/components/mbedtls/mbedtls/include -IC:/Espressif/esp-idf-v5.0/components/mbedtls/mbedtls/library -IC:/Espressif/esp-idf-v5.0/components/mbedtls/esp_crt_bundle/include -IC:/Espressif/esp-idf-v5.0/components/esp_app_format/include -IC:/Espressif/esp-idf-v5.0/components/bootloader_support/include -IC:/Espressif/esp-idf-v5.0/components/bootloader_support/bootloader_flash/include -IC:/Espressif/esp-idf-v5.0/components/esp_partition/include -IC:/Espressif/esp-idf-v5.0/components/app_update/include -IC:/Espressif/esp-idf-v5.0/components/spi_flash/include -IC:/Espressif/esp-idf-v5.0/components/pthread/include -IC:/Espressif/esp-idf-v5.0/components/esp_timer/include -IC:/Espressif/esp-idf-v5.0/components/app_trace/include -IC:/Espressif/esp-idf-v5.0/components/esp_event/include -IC:/Espressif/esp-idf-v5.0/components/nvs_flash/include -IC:/Espressif/esp-idf-v5.0/components/esp_phy/include -IC:/Espressif/esp-idf-v5.0/components/esp_phy/esp32/include -IC:/Espressif/esp-idf-v5.0/components/vfs/include -IC:/Espressif/esp-idf-v5.0/components/esp_netif/include -IC:/Espressif/esp-idf-v5.0/components/wpa_supplicant/include -IC:/Espressif/esp-idf-v5.0/components/wpa_supplicant/port/include -IC:/Espressif/esp-idf-v5.0/components/wpa_supplicant/esp_supplicant/include -IC:/Espressif/esp-idf-v5.0/components/esp_wifi/include -IC:/Espressif/esp-idf-v5.0/components/unity/include -IC:/Espressif/esp-idf-v5.0/components/unity/unity/src -IC:/Espressif/esp-idf-v5.0/components/cmock/CMock/src -IC:/Espressif/esp-idf-v5.0/components/console -IC:/Espressif/esp-idf-v5.0/components/http_parser -IC:/Espressif/esp-idf-v5.0/components/esp-tls -IC:/Espressif/esp-idf-v5.0/components/esp-tls/esp-tls-crypto -IC:/Espressif/esp-idf-v5.0/components/esp_adc/include -IC:/Espressif/esp-idf-v5.0/components/esp_adc/interface -IC:/Espressif/esp-idf-v5.0/components/esp_adc/esp32/include -IC:/Espressif/esp-idf-v5.0/components/esp_adc/deprecated/include -IC:/Espressif/esp-idf-v5.0/components/esp_eth/include -IC:/Espressif/esp-idf-v5.0/components/esp_gdbstub/include -IC:/Espressif/esp-idf-v5.0/components/esp_gdbstub/xtensa -IC:/Espressif/esp-idf-v5.0/components/esp_gdbstub/esp32 -IC:/Espressif/esp-idf-v5.0/components/esp_hid/include -IC:/Espressif/esp-idf-v5.0/components/tcp_transport/include -IC:/Espressif/esp-idf-v5.0/components/esp_http_client/include -IC:/Espressif/esp-idf-v5.0/components/esp_http_server/include -IC:/Espressif/esp-idf-v5.0/components/esp_https_ota/include -IC:/Espressif/esp-idf-v5.0/components/esp_lcd/include -IC:/Espressif/esp-idf-v5.0/components/esp_lcd/interface -IC:/Espressif/esp-idf-v5.0/components/protobuf-c/protobuf-c -IC:/Espressif/esp-idf-v5.0/components/protocomm/include/common -IC:/Espressif/esp-idf-v5.0/components/protocomm/include/security -IC:/Espressif/esp-idf-v5.0/components/protocomm/include/transports -IC:/Espressif/esp-idf-v5.0/components/esp_local_ctrl/include -IC:/Espressif/esp-idf-v5.0/components/esp_psram/include -IC:/Espressif/esp-idf-v5.0/components/espcoredump/include -IC:/Espressif/esp-idf-v5.0/components/espcoredump/include/port/xtensa -IC:/Espressif/esp-idf-v5.0/components/wear_levelling/include -IC:/Espressif/esp-idf-v5.0/components/sdmmc/include -IC:/Espressif/esp-idf-v5.0/components/fatfs/diskio -IC:/Espressif/esp-idf-v5.0/components/fatfs/vfs -IC:/Espressif/esp-idf-v5.0/components/fatfs/src -IC:/Espressif/esp-idf-v5.0/components/idf_test/include -IC:/Espressif/esp-idf-v5.0/components/idf_test/include/esp32 -IC:/Espressif/esp-idf-v5.0/components/ieee802154/include -IC:/Espressif/esp-idf-v5.0/components/json/cJSON -IC:/Espressif/esp-idf-v5.0/components/mqtt/esp-mqtt/include -IC:/Espressif/esp-idf-v5.0/components/perfmon/include -IC:/Espressif/esp-idf-v5.0/components/spiffs/include -IC:/Espressif/esp-idf-v5.0/components/ulp/ulp_common/include -IC:/Espressif/esp-idf-v5.0/components/ulp/ulp_common/include/esp32 -IC:/Espressif/esp-idf-v5.0/components/wifi_provisioning/include -IC:/Espressif/esp-idf-v5.0/examples/common_components/protocol_examples_common/include -mlongcalls -Wno-frame-address  -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fmacro-prefix-map=E:/Projects/home_automation/DeskLampAutomation/vscode=. -fmacro-prefix-map=C:/Espressif/esp-idf-v5.0=/IDF -fstrict-volatile-bitfields -Wno-error=unused-but-set-variable -fno-jump-tables -fno-tree-switch-conversion -DconfigENABLE_FREERTOS_DEBUG_OCDAWARE=1 -std=gnu17 -Wno-old-style-declaration -D_GNU_SOURCE -DIDF_VER=\"v5.0-dirty\" -DESP_PLATFORM -D_POSIX_READER_WRITER_LOCKS -MD -MT esp-idf/main/CMakeFiles/__idf_main.dir/motor.c.obj -MF esp-idf\main\CMakeFiles\__idf_main.dir\motor.c.obj.d -o esp-idf/main/CMakeFiles/__idf_main.dir/motor.c.obj -c E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:17,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c:1:
+C:/Espressif/esp-idf-v5.0/components/driver/deprecated/driver/mcpwm.h:15:2: warning: #warning "legacy MCPWM driver is deprecated, please migrate to the new driver (include driver/mcpwm_prelude.h)" [-Wcpp]
+   15 | #warning "legacy MCPWM driver is deprecated, please migrate to the new driver (include driver/mcpwm_prelude.h)"
+      |  ^~~~~~~
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:21,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c:1:
+e:\projects\home_automation\desklampautomation\vscode\include\motor_config.h:26:3: error: conflicting types for 'MotorConfig'; have 'struct <anonymous>'
+   26 | } MotorConfig;
+      |   ^~~~~~~~~~~
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor_actions.h:18,
+                 from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:20,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c:1:
+e:\projects\home_automation\desklampautomation\vscode\include\motor_config.h:26:3: note: previous declaration of 'MotorConfig' with type 'MotorConfig'
+   26 | } MotorConfig;
+      |   ^~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c: In function 'execute_motor_command':
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c:11:25: warning: passing argument 1 of 'motor_press' from incompatible pointer type [-Wincompatible-pointer-types]
+   11 |             motor_press(&motor->motor_config);
+      |                         ^~~~~~~~~~~~~~~~~~~~
+      |                         |
+      |                         MotorConfig *
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:20,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c:1:
+e:\projects\home_automation\desklampautomation\vscode\include\motor_actions.h:62:30: note: expected 'MotorConfig *' but argument is of type 'MotorConfig *'
+   62 | int motor_press(MotorConfig* motor_config);
+      |                 ~~~~~~~~~~~~~^~~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c:14:27: warning: passing argument 1 of 'motor_release' from incompatible pointer type [-Wincompatible-pointer-types]
+   14 |             motor_release(&motor->motor_config);
+      |                           ^~~~~~~~~~~~~~~~~~~~
+      |                           |
+      |                           MotorConfig *
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:20,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c:1:
+e:\projects\home_automation\desklampautomation\vscode\include\motor_actions.h:63:32: note: expected 'MotorConfig *' but argument is of type 'MotorConfig *'
+   63 | int motor_release(MotorConfig* motor_config);
+      |                   ~~~~~~~~~~~~~^~~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c: At top level:
+e:\projects\home_automation\desklampautomation\vscode\include\motor_actions.h:58:24: warning: 'convert_servo_angle_to_duty_us' declared 'static' but never defined [-Wunused-function]
+   58 | static inline uint32_t convert_servo_angle_to_duty_us(int angle);
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor_actions.h:16,
+                 from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:20,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor.c:1:
+e:\projects\home_automation\desklampautomation\vscode\include\esp_logger.h:4:20: warning: 'TAG' defined but not used [-Wunused-variable]
+    4 | static const char *TAG = "motor_controller";
+      |                    ^~~
+[2/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/motor_actions.c.obj
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor_actions.h:14,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c:1:
+C:/Espressif/esp-idf-v5.0/components/driver/deprecated/driver/mcpwm.h:15:2: warning: #warning "legacy MCPWM driver is deprecated, please migrate to the new driver (include driver/mcpwm_prelude.h)" [-Wcpp]
+   15 | #warning "legacy MCPWM driver is deprecated, please migrate to the new driver (include driver/mcpwm_prelude.h)"
+      |  ^~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c: In function 'motor_move_min':
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c:30:9: warning: unused variable 'err' [-Wunused-variable]
+   30 |     int err = 1;
+      |         ^~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c: In function 'motor_move_max':
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c:40:9: warning: unused variable 'err' [-Wunused-variable]
+   40 |     int err = 1;
+      |         ^~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c: In function 'motor_press':
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c:50:9: warning: unused variable 'err' [-Wunused-variable]
+   50 |     int err = 1;
+      |         ^~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c: In function 'motor_release':
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/motor_actions.c:63:9: warning: unused variable 'err' [-Wunused-variable]
+   63 |     int err = 1;
+      |         ^~~
+[3/12] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D E:\Projects\home_automation\DeskLampAutomation\vscode\build\bootloader\esp-idf\esptool_py && C:\Users\tomot\.espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/esp-idf-v5.0/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 E:/Projects/home_automation/DeskLampAutomation/vscode/build/bootloader/bootloader.bin"
+
+
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+
+
+
+[4/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+
+FAILED: esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj 
+
+C:\Espressif\tools\tools\xtensa-esp32-elf\esp-2022r1-11.2.0\xtensa-esp32-elf\bin\xtensa-esp32-elf-gcc.exe -DMBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\" -DUNITY_INCLUDE_CONFIG_H -IE:/Projects/home_automation/DeskLampAutomation/vscode/build/config -IE:/Projects/home_automation/DeskLampAutomation/vscode/main -IC:/Espressif/esp-idf-v5.0/components/newlib/platform_include -IC:/Espressif/esp-idf-v5.0/components/freertos/FreeRTOS-Kernel/include -IC:/Espressif/esp-idf-v5.0/components/freertos/esp_additions/include/freertos -IC:/Espressif/esp-idf-v5.0/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -IC:/Espressif/esp-idf-v5.0/components/freertos/esp_additions/include -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/include -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/include/soc -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/include/soc/esp32 -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/port/esp32/. -IC:/Espressif/esp-idf-v5.0/components/esp_hw_support/port/esp32/private_include -IC:/Espressif/esp-idf-v5.0/components/heap/include -IC:/Espressif/esp-idf-v5.0/components/log/include -IC:/Espressif/esp-idf-v5.0/components/soc/include -IC:/Espressif/esp-idf-v5.0/components/soc/esp32/. -IC:/Espressif/esp-idf-v5.0/components/soc/esp32/include -IC:/Espressif/esp-idf-v5.0/components/hal/esp32/include -IC:/Espressif/esp-idf-v5.0/components/hal/include -IC:/Espressif/esp-idf-v5.0/components/hal/platform_port/include -IC:/Espressif/esp-idf-v5.0/components/esp_rom/include -IC:/Espressif/esp-idf-v5.0/components/esp_rom/include/esp32 -IC:/Espressif/esp-idf-v5.0/components/esp_rom/esp32 -IC:/Espressif/esp-idf-v5.0/components/esp_common/include -IC:/Espressif/esp-idf-v5.0/components/esp_system/include -IC:/Espressif/esp-idf-v5.0/components/esp_system/port/soc -IC:/Espressif/esp-idf-v5.0/components/esp_system/port/include/private -IC:/Espressif/esp-idf-v5.0/components/xtensa/include -IC:/Espressif/esp-idf-v5.0/components/xtensa/esp32/include -IC:/Espressif/esp-idf-v5.0/components/lwip/include -IC:/Espressif/esp-idf-v5.0/components/lwip/include/apps -IC:/Espressif/esp-idf-v5.0/components/lwip/include/apps/sntp -IC:/Espressif/esp-idf-v5.0/components/lwip/lwip/src/include -IC:/Espressif/esp-idf-v5.0/components/lwip/port/esp32/include -IC:/Espressif/esp-idf-v5.0/components/lwip/port/esp32/include/arch -IC:/Espressif/esp-idf-v5.0/components/esp_ringbuf/include -IC:/Espressif/esp-idf-v5.0/components/efuse/include -IC:/Espressif/esp-idf-v5.0/components/efuse/esp32/include -IC:/Espressif/esp-idf-v5.0/components/driver/include -IC:/Espressif/esp-idf-v5.0/components/driver/deprecated -IC:/Espressif/esp-idf-v5.0/components/driver/esp32/include -IC:/Espressif/esp-idf-v5.0/components/esp_pm/include -IC:/Espressif/esp-idf-v5.0/components/mbedtls/port/include -IC:/Espressif/esp-idf-v5.0/components/mbedtls/mbedtls/include -IC:/Espressif/esp-idf-v5.0/components/mbedtls/mbedtls/library -IC:/Espressif/esp-idf-v5.0/components/mbedtls/esp_crt_bundle/include -IC:/Espressif/esp-idf-v5.0/components/esp_app_format/include -IC:/Espressif/esp-idf-v5.0/components/bootloader_support/include -IC:/Espressif/esp-idf-v5.0/components/bootloader_support/bootloader_flash/include -IC:/Espressif/esp-idf-v5.0/components/esp_partition/include -IC:/Espressif/esp-idf-v5.0/components/app_update/include -IC:/Espressif/esp-idf-v5.0/components/spi_flash/include -IC:/Espressif/esp-idf-v5.0/components/pthread/include -IC:/Espressif/esp-idf-v5.0/components/esp_timer/include -IC:/Espressif/esp-idf-v5.0/components/app_trace/include -IC:/Espressif/esp-idf-v5.0/components/esp_event/include -IC:/Espressif/esp-idf-v5.0/components/nvs_flash/include -IC:/Espressif/esp-idf-v5.0/components/esp_phy/include -IC:/Espressif/esp-idf-v5.0/components/esp_phy/esp32/include -IC:/Espressif/esp-idf-v5.0/components/vfs/include -IC:/Espressif/esp-idf-v5.0/components/esp_netif/include -IC:/Espressif/esp-idf-v5.0/components/wpa_supplicant/include -IC:/Espressif/esp-idf-v5.0/components/wpa_supplicant/port/include -IC:/Espressif/esp-idf-v5.0/components/wpa_supplicant/esp_supplicant/include -IC:/Espressif/esp-idf-v5.0/components/esp_wifi/include -IC:/Espressif/esp-idf-v5.0/components/unity/include -IC:/Espressif/esp-idf-v5.0/components/unity/unity/src -IC:/Espressif/esp-idf-v5.0/components/cmock/CMock/src -IC:/Espressif/esp-idf-v5.0/components/console -IC:/Espressif/esp-idf-v5.0/components/http_parser -IC:/Espressif/esp-idf-v5.0/components/esp-tls -IC:/Espressif/esp-idf-v5.0/components/esp-tls/esp-tls-crypto -IC:/Espressif/esp-idf-v5.0/components/esp_adc/include -IC:/Espressif/esp-idf-v5.0/components/esp_adc/interface -IC:/Espressif/esp-idf-v5.0/components/esp_adc/esp32/include -IC:/Espressif/esp-idf-v5.0/components/esp_adc/deprecated/include -IC:/Espressif/esp-idf-v5.0/components/esp_eth/include -IC:/Espressif/esp-idf-v5.0/components/esp_gdbstub/include -IC:/Espressif/esp-idf-v5.0/components/esp_gdbstub/xtensa -IC:/Espressif/esp-idf-v5.0/components/esp_gdbstub/esp32 -IC:/Espressif/esp-idf-v5.0/components/esp_hid/include -IC:/Espressif/esp-idf-v5.0/components/tcp_transport/include -IC:/Espressif/esp-idf-v5.0/components/esp_http_client/include -IC:/Espressif/esp-idf-v5.0/components/esp_http_server/include -IC:/Espressif/esp-idf-v5.0/components/esp_https_ota/include -IC:/Espressif/esp-idf-v5.0/components/esp_lcd/include -IC:/Espressif/esp-idf-v5.0/components/esp_lcd/interface -IC:/Espressif/esp-idf-v5.0/components/protobuf-c/protobuf-c -IC:/Espressif/esp-idf-v5.0/components/protocomm/include/common -IC:/Espressif/esp-idf-v5.0/components/protocomm/include/security -IC:/Espressif/esp-idf-v5.0/components/protocomm/include/transports -IC:/Espressif/esp-idf-v5.0/components/esp_local_ctrl/include -IC:/Espressif/esp-idf-v5.0/components/esp_psram/include -IC:/Espressif/esp-idf-v5.0/components/espcoredump/include -IC:/Espressif/esp-idf-v5.0/components/espcoredump/include/port/xtensa -IC:/Espressif/esp-idf-v5.0/components/wear_levelling/include -IC:/Espressif/esp-idf-v5.0/components/sdmmc/include -IC:/Espressif/esp-idf-v5.0/components/fatfs/diskio -IC:/Espressif/esp-idf-v5.0/components/fatfs/vfs -IC:/Espressif/esp-idf-v5.0/components/fatfs/src -IC:/Espressif/esp-idf-v5.0/components/idf_test/include -IC:/Espressif/esp-idf-v5.0/components/idf_test/include/esp32 -IC:/Espressif/esp-idf-v5.0/components/ieee802154/include -IC:/Espressif/esp-idf-v5.0/components/json/cJSON -IC:/Espressif/esp-idf-v5.0/components/mqtt/esp-mqtt/include -IC:/Espressif/esp-idf-v5.0/components/perfmon/include -IC:/Espressif/esp-idf-v5.0/components/spiffs/include -IC:/Espressif/esp-idf-v5.0/components/ulp/ulp_common/include -IC:/Espressif/esp-idf-v5.0/components/ulp/ulp_common/include/esp32 -IC:/Espressif/esp-idf-v5.0/components/wifi_provisioning/include -IC:/Espressif/esp-idf-v5.0/examples/common_components/protocol_examples_common/include -mlongcalls -Wno-frame-address  -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fmacro-prefix-map=E:/Projects/home_automation/DeskLampAutomation/vscode=. -fmacro-prefix-map=C:/Espressif/esp-idf-v5.0=/IDF -fstrict-volatile-bitfields -Wno-error=unused-but-set-variable -fno-jump-tables -fno-tree-switch-conversion -DconfigENABLE_FREERTOS_DEBUG_OCDAWARE=1 -std=gnu17 -Wno-old-style-declaration -D_GNU_SOURCE -DIDF_VER=\"v5.0-dirty\" -DESP_PLATFORM -D_POSIX_READER_WRITER_LOCKS -MD -MT esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj -MF esp-idf\main\CMakeFiles\__idf_main.dir\main.c.obj.d -o esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj -c E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c
+In file included from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.h:23,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:1:
+C:/Espressif/esp-idf-v5.0/components/driver/deprecated/driver/mcpwm.h:15:2: warning: #warning "legacy MCPWM driver is deprecated, please migrate to the new driver (include driver/mcpwm_prelude.h)" [-Wcpp]
+   15 | #warning "legacy MCPWM driver is deprecated, please migrate to the new driver (include driver/mcpwm_prelude.h)"
+      |  ^~~~~~~
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:21,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.h:25,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:1:
+e:\projects\home_automation\desklampautomation\vscode\include\motor_config.h:26:3: error: conflicting types for 'MotorConfig'; have 'struct <anonymous>'
+   26 | } MotorConfig;
+      |   ^~~~~~~~~~~
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor_actions.h:18,
+                 from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:20,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.h:25,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:1:
+e:\projects\home_automation\desklampautomation\vscode\include\motor_config.h:26:3: note: previous declaration of 'MotorConfig' with type 'MotorConfig'
+   26 | } MotorConfig;
+      |   ^~~~~~~~~~~
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:16,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.h:25,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:1:
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c: In function 'task_print_motor':
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:265:27: error: format '%s' expects argument of type 'char *', but argument 6 has type 'MotorConfig' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:27:5: note: in expansion of macro 'ESP_LOGI'
+   27 |     ESP_LOGI(TAG,"Motor config: %s",motor->motor_config);
+      |     ^~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:265:27: error: format '%s' expects argument of type 'char *', but argument 6 has type 'MotorConfig' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:27:5: note: in expansion of macro 'ESP_LOGI'
+   27 |     ESP_LOGI(TAG,"Motor config: %s",motor->motor_config);
+      |     ^~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:27:1: error: format '%s' expects argument of type 'char *', but argument 6 has type 'MotorConfig' [-Werror=format=]
+   27 |     ESP_LOGI(TAG,"Motor config: %s",motor->motor_config);
+      | ^   ~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:27:5: note: in expansion of macro 'ESP_LOGI'
+   27 |     ESP_LOGI(TAG,"Motor config: %s",motor->motor_config);
+      |     ^~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:27:1: error: format '%s' expects argument of type 'char *', but argument 6 has type 'MotorConfig' [-Werror=format=]
+   27 |     ESP_LOGI(TAG,"Motor config: %s",motor->motor_config);
+      | ^   ~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:27:5: note: in expansion of macro 'ESP_LOGI'
+   27 |     ESP_LOGI(TAG,"Motor config: %s",motor->motor_config);
+      |     ^~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:265:27: error: format '%s' expects argument of type 'char *', but argument 6 has type 'MotorConfig' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+C:/Espressif/esp-idf-v5.0/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:27:5: note: in expansion of macro 'ESP_LOGI'
+   27 |     ESP_LOGI(TAG,"Motor config: %s",motor->motor_config);
+      |     ^~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c: In function 'motor_api_handler':
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:321:12: warning: unused variable 'xMotor' [-Wunused-variable]
+  321 |     Motor* xMotor = find_motor_by_name(name);
+      |            ^~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c: In function 'find_motor_by_name':
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:460:10: warning: variable 'found_motor' set but not used [-Wunused-but-set-variable]
+  460 |     bool found_motor = false;
+      |          ^~~~~~~~~~~
+In file included from e:\projects\home_automation\desklampautomation\vscode\include\motor.h:20,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.h:25,
+                 from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:1:
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c: At top level:
+e:\projects\home_automation\desklampautomation\vscode\include\motor_actions.h:58:24: warning: 'convert_servo_angle_to_duty_us' declared 'static' but never defined [-Wunused-function]
+   58 | static inline uint32_t convert_servo_angle_to_duty_us(int angle);
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:1:
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.h:32:13: warning: 'task_motor_test' declared 'static' but never defined [-Wunused-function]
+   32 | static void task_motor_test(void *arg);
+      |             ^~~~~~~~~~~~~~~
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:31:13: warning: 'task_execute_motor_command' defined but not used [-Wunused-function]
+
+   31 | static void task_execute_motor_command(void* xMotor){
+
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~
+
+E:/Projects/home_automation/DeskLampAutomation/vscode/main/main.c:22:13: warning: 'task_print_motor' defined but not used [-Wunused-function]
+
+   22 | static void task_print_motor(void* xMotor){
+
+      |             ^~~~~~~~~~~~~~~~
+
+cc1.exe: some warnings being treated as errors
+
+ninja: build stopped: subcommand failed.
+
+ninja failed with exit code 1, output of the command is in the e:\projects\home_automation\desklampautomation\vscode\build\log\idf_py_stderr_output_41800 and e:\projects\home_automation\desklampautomation\vscode\build\log\idf_py_stdout_output_41800
+[ESP_TOOLS]
+  Deactivating build environment

@@ -4,7 +4,7 @@ extern "C" {
 
 #pragma once
 
-#include "../include/motor.h"
+#include "../include/motor_common.h"
 
 /*
 [MotorState]
@@ -21,11 +21,15 @@ typedef enum {
     MOTSTT_IDLE,
     MOTSTT_MOVING,
     MOTSTT_END = MOTSTT_MOVING
+} MotorState_e;
+
+typedef struct {
+    MotorState_e state;
 } MotorState;
 
 
-char* get_motor_state(Motor* motor);
-int set_motor_state(Motor* motor, MotorState state);
+char* get_motor_state(MotorState* motor_state);
+int set_motor_state(MotorState* motor_state, MotorState_e state);
 
 #ifdef __cplusplus
 }
