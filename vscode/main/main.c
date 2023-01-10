@@ -1,13 +1,13 @@
 #include "main.h"
 
 
-static mcpwm_config_t pwm_config = {
-    .frequency = 50, // frequency = 50Hz, i.e. for every servo motor time period should be 20ms
-    .cmpr_a = 0,     // duty cycle of PWMxA = 0
-    .cmpr_b = 0,
-    .counter_mode = MCPWM_UP_COUNTER,
-    .duty_mode = MCPWM_DUTY_MODE_0,
-};
+// static mcpwm_config_t pwm_config = {
+//     .frequency = 50, // frequency = 50Hz, i.e. for every servo motor time period should be 20ms
+//     .cmpr_a = 0,     // duty cycle of PWMxA = 0
+//     .cmpr_b = 0,
+//     .counter_mode = MCPWM_UP_COUNTER,
+//     .duty_mode = MCPWM_DUTY_MODE_0,
+// };
 
 // static void task_motor(void *arg)
 // {
@@ -396,46 +396,103 @@ void app_main(void) {
 
 
     // MOTORS Init
-    /*
-    Array of motors
-    */   
+
+    ESP_LOGI(TAG, "Create timers");
+    mcpwm_timer_handle_t timers[NUM_MOTORS];
+    mcpwm_timer_config_t timer_config = {
+        .clk_src = MCPWM_TIMER_CLK_SRC_DEFAULT,
+        .group_id = 0,
+        .resolution_hz = SERVO_TIMEBASE_RESOLUTION_HZ,
+        .period_ticks = SERVO_TIMEBASE_PERIOD,
+        .count_mode = MCPWM_TIMER_COUNT_MODE_UP,
+    };
+    for (int i = 0; i < NUM_MOTORS; i++) {
+        if(i == NUM_MOTORS/2){
+            ESP_LOGI(TAG, "[DEBUG] count = %d", i);
+            ESP_LOGI(TAG,"Updating timer_config.group_id = 1");
+            timer_config.group_id = 1;
+        }
+        ESP_ERROR_CHECK(mcpwm_new_timer(&timer_config, &timers[i]));
+    }
+
+    ESP_LOGI(TAG, "Create operators");
+    mcpwm_oper_handle_t operators[NUM_MOTORS];
+    mcpwm_operator_config_t operator_config = {
+        .group_id = 0, // operator should be in the same group of the above timers
+    };
+    for (int i = 0; i < NUM_MOTORS; ++i) {
+        if(i == NUM_MOTORS/2){
+            ESP_LOGI(TAG, "[DEBUG] count = %d", i);
+            ESP_LOGI(TAG,"Updating operator_config.group_id = 1");
+            operator_config.group_id = 1;
+        }
+        ESP_ERROR_CHECK(mcpwm_new_operator(&operator_config, &operators[i]));
+    }
+
+    ESP_LOGI(TAG, "Connect timers and operators with each other");
+    for (int i = 0; i < NUM_MOTORS; i++) {
+        ESP_ERROR_CHECK(mcpwm_operator_connect_timer(operators[i], timers[i]));
+    }
+
+    ESP_LOGI(TAG, "Create comparators");
+    mcpwm_cmpr_handle_t comparators[NUM_MOTORS];
+    mcpwm_comparator_config_t compare_config = {
+        .flags.update_cmp_on_tez = true,
+    };
+    for (int i = 0; i < NUM_MOTORS; i++) {
+        ESP_ERROR_CHECK(mcpwm_new_comparator(operators[i], &compare_config, &comparators[i]));
+        // init compare for each comparator
+        ESP_ERROR_CHECK(mcpwm_comparator_set_compare_value(comparators[i], 0));
+    }
+
+    ESP_LOGI(TAG, "Create generators");
+    mcpwm_gen_handle_t generators[NUM_MOTORS];
+    mcpwm_generator_config_t gen_config = {};
+    for (int i = 0; i < NUM_MOTORS; i++) {
+        gen_config.gen_gpio_num = SERVO_PULSE_GPIO[i];
+        ESP_ERROR_CHECK(mcpwm_new_generator(operators[i], &gen_config, &generators[i]));
+    }
+
     MOTORS[0] = (Motor) {"MCPWM0A", (MotorState){MOTSTT_IDLE}, 
                          (MotorAction){MOTACT_NONE}, (MotorError){MOTERR_NO_ERROR, ""}, 
-                         (MotorConfig){CW, MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0A, SERVO_PULSE_GPIO[0]}};
+                         (MotorConfig){CW, SERVO_PULSE_GPIO[0], timers[0], comparators[0], generators[0]}};
 
     MOTORS[1] = (Motor) {"MCPWM0B", (MotorState){MOTSTT_IDLE}, 
                          (MotorAction){MOTACT_NONE}, (MotorError){MOTERR_NO_ERROR, ""},
-                         (MotorConfig){CCW, MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM0B, SERVO_PULSE_GPIO[1]}};
+                         (MotorConfig){CCW, SERVO_PULSE_GPIO[1], timers[1], comparators[1], generators[1]}};
 
     MOTORS[2] = (Motor) {"MCPWM1A", (MotorState){MOTSTT_IDLE}, 
                          (MotorAction){MOTACT_NONE}, (MotorError){MOTERR_NO_ERROR, ""},
-                         (MotorConfig){CCW, MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM1A, SERVO_PULSE_GPIO[2]}};
+                         (MotorConfig){CCW, SERVO_PULSE_GPIO[2], timers[2], comparators[2], generators[2]}};
 
-    MOTORS[3] = (Motor) {"MCPWM1B", (MotorState){MOTSTT_IDLE}, 
-                         (MotorAction){MOTACT_NONE}, (MotorError){MOTERR_NO_ERROR, ""},
-                         (MotorConfig){CW, MCPWM_UNIT_0, MCPWM_TIMER_1, MCPWM1B, SERVO_PULSE_GPIO[3]}};
+    // MOTORS[3] = (Motor) {"MCPWM1B", (MotorState){MOTSTT_IDLE}, 
+    //                      (MotorAction){MOTACT_NONE}, (MotorError){MOTERR_NO_ERROR, ""},
+    //                      (MotorConfig){CW, SERVO_PULSE_GPIO[3], timers[3], comparators[3], generators[3]}};
+
+
 
 
     // PWM Init
-    mcpwm_gpio_init(MOTORS[0].motor_config.pwm_unit,
-                    MOTORS[0].motor_config.pwm_pin, 
-                    MOTORS[0].motor_config.gpio);
+    // mcpwm_gpio_init(MOTORS[0].motor_config.pwm_unit,
+    //                 MOTORS[0].motor_config.pwm_pin, 
+    //                 MOTORS[0].motor_config.gpio);
 
-    mcpwm_gpio_init(MOTORS[1].motor_config.pwm_unit, 
-                    MOTORS[1].motor_config.pwm_pin,
-                    MOTORS[1].motor_config.gpio);
+    // mcpwm_gpio_init(MOTORS[1].motor_config.pwm_unit, 
+    //                 MOTORS[1].motor_config.pwm_pin,
+    //                 MOTORS[1].motor_config.gpio);
 
-    mcpwm_gpio_init(MOTORS[2].motor_config.pwm_unit,
-                    MOTORS[2].motor_config.pwm_pin, 
-                    MOTORS[2].motor_config.gpio);
+    // mcpwm_gpio_init(MOTORS[2].motor_config.pwm_unit,
+    //                 MOTORS[2].motor_config.pwm_pin, 
+    //                 MOTORS[2].motor_config.gpio);
                     
-    mcpwm_gpio_init(MOTORS[3].motor_config.pwm_unit,
-                    MOTORS[3].motor_config.pwm_pin, 
-                    MOTORS[3].motor_config.gpio);
+    // mcpwm_gpio_init(MOTORS[3].motor_config.pwm_unit,
+    //                 MOTORS[3].motor_config.pwm_pin, 
+    //                 MOTORS[3].motor_config.gpio);
 
-    // [TODO] Update with the init to support multiple pwm units
-    mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_0, &pwm_config);
-    mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_1, &pwm_config);
+    // // [TODO] Update with the init to support multiple pwm units
+    // mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_0, &pwm_config);
+    // mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_1, &pwm_config);
+
 
     // Server Init
     static httpd_handle_t server = NULL;

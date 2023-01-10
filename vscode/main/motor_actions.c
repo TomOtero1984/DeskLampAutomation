@@ -48,14 +48,16 @@ int set_motor_action(MotorAction* motor_action, MotorAction_e action){
 
 static inline uint32_t convert_servo_angle_to_duty_us(int angle)
 {
-    return (angle + SERVO_MAX_DEGREE) * (SERVO_MAX_PULSEWIDTH_US - SERVO_MIN_PULSEWIDTH_US) / (2 * SERVO_MAX_DEGREE) + SERVO_MIN_PULSEWIDTH_US;
+    // return (angle + SERVO_MAX_DEGREE) * (SERVO_MAX_PULSEWIDTH_US - SERVO_MIN_PULSEWIDTH_US) / (2 * SERVO_MAX_DEGREE) + SERVO_MIN_PULSEWIDTH_US;
+    return (angle - SERVO_MIN_DEGREE) * (SERVO_MAX_PULSEWIDTH_US - SERVO_MIN_PULSEWIDTH_US) / (SERVO_MAX_DEGREE - SERVO_MIN_DEGREE) + SERVO_MIN_PULSEWIDTH_US; 
 }
 
 int motor_move_min(MotorConfig* motor_config){
     int err = 1;
     for (int angle = SERVO_MAX_DEGREE; angle >= SERVO_MID_DEGREE; angle--) {
         ESP_LOGI(TAG, "Angle of rotation: %d", angle);
-        ESP_ERROR_CHECK(mcpwm_set_duty_in_us(motor_config->pwm_unit, motor_config->pwm_timer, motor_config->pwm_pin, convert_servo_angle_to_duty_us(angle)));
+        // ESP_ERROR_CHECK(mcpwm_set_duty_in_us(motor_config->pwm_unit, motor_config->pwm_timer, motor_config->pwm_pin, convert_servo_angle_to_duty_us(angle)));
+        ESP_ERROR_CHECK(mcpwm_comparator_set_compare_value(motor_config->comparator, convert_servo_angle_to_duty_us(angle)));
         vTaskDelay(pdMS_TO_TICKS(100)); //Add delay, since it takes time for servo to rotate, generally 100ms/60degree rotation under 5V power supply
     }
     return err;
@@ -65,7 +67,10 @@ int motor_move_max(MotorConfig* motor_config){
     int err = 1;
     for (int angle = SERVO_MIN_DEGREE; angle <= SERVO_MID_DEGREE; angle++) {
         ESP_LOGI(TAG, "Angle of rotation: %d", angle);
-        ESP_ERROR_CHECK(mcpwm_set_duty_in_us(motor_config->pwm_unit, motor_config->pwm_timer, motor_config->pwm_pin, convert_servo_angle_to_duty_us(angle)));
+        // ESP_ERROR_CHECK(mcpwm_set_duty_in_us(motor_config->pwm_unit, motor_config->pwm_timer, motor_config->pwm_pin, convert_servo_angle_to_duty_us(angle)));
+        int cmp_tick = convert_servo_angle_to_duty_us(angle);
+        ESP_LOGI(TAG, "[DEBUG] cmp_tick: %d", cmp_tick);
+        ESP_ERROR_CHECK(mcpwm_comparator_set_compare_value(motor_config->comparator, cmp_tick));
         vTaskDelay(pdMS_TO_TICKS(100)); //Add delay, since it takes time for servo to rotate, generally 100ms/60degree rotation under 5V power supply
     }
     return err;

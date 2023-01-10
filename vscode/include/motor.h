@@ -14,7 +14,6 @@ extern "C" {
 #include "freertos/task.h"
 // ESP
 #include "esp_log.h"
-#include "driver/mcpwm.h"
 // Local
 #include "../include/motor_common.h"
 #include "../include/motor_actions.h"

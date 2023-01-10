@@ -12,22 +12,12 @@ extern "C" {
 #include "freertos/task.h"
 // ESP
 #include "esp_log.h"
-#include "driver/mcpwm.h"
 // Local
 #include "../include/motor_common.h"
 #include "../include/motor_config.h"
 #include "../include/motor_state.h"
 #include "../include/motor_error.h"
 #include "../include/esp_logger.h"
-
-
-#define SERVO_MIN_PULSEWIDTH_US (1000) // Minimum pulse width in microsecond
-#define SERVO_MAX_PULSEWIDTH_US (2000) // Maximum pulse width in microsecond
-#define SERVO_MIN_DEGREE        (-90)    // Minimum angle in degree upto which servo can rotate
-#define SERVO_MID_DEGREE        (0)   // Middle angle in degree upto which servo can rotate
-#define SERVO_MAX_DEGREE        (90)  // Maximum angle in degree upto which servo can rotate
-#define SERVO_PULSE_GPIO        (int[]){16,17,18,19}   // GPIO connects to the PWM signal line
-
 
 
 /*

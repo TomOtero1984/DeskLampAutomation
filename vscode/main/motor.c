@@ -6,12 +6,12 @@ static void task_print_motor_object(void* xMotor) {
     ESP_LOGI(TAG,"Motor name: %s",motor->name);
     ESP_LOGI(TAG,"Motor action: %d",motor->motor_action.action);
     ESP_LOGI(TAG,"Motor error: %d",motor->motor_error.error_code);
-    ESP_LOGI(TAG,"Motor config: { %d, %d, %d, %d, %d }",
-        motor->motor_config.direction,
-        motor->motor_config.pwm_unit, 
-        motor->motor_config.pwm_timer,
-        motor->motor_config.pwm_pin,
-        motor->motor_config.gpio);
+    // ESP_LOGI(TAG,"Motor config: { %d, %d, %d, %d, %d }",
+    //     motor->motor_config.direction,
+    //     motor->motor_config.gpio,
+    //     motor->motor_config.timer,
+    //     motor->motor_config.comparator,
+    //     motor->motor_config.generator);
     vTaskDelete(NULL);
 }
 
