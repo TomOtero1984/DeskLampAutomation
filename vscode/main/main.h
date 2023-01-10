@@ -21,7 +21,8 @@
 #include <esp_http_server.h>
 #include "protocol_examples_common.h"
 // PWM
-#include "driver/mcpwm.h"
+#include "driver/mcpwm_prelude.h"
+#include "driver/gpio.h"
 // Local
 #include "../include/motor.h"
 #include "../include/esp_logger.h"
