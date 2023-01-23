@@ -226,9 +226,11 @@ static int motor_api_handler(char* name, char* action_str) {
         // Get motor
         Motor* motor = get_motor(index);
         set_motor_action(&motor->motor_action, action);
+        
         // Send motor action
         execute_motor_command(motor);
         // xTaskCreate(task_print_motor, "task_print_motor", 1024 * 2, motor, 10, NULL);
+        
         // Wait for motor to complete action
 
         // Save motor status message in motor
@@ -465,9 +467,9 @@ void app_main(void) {
                          (MotorAction){MOTACT_NONE}, (MotorError){MOTERR_NO_ERROR, ""},
                          (MotorConfig){CCW, SERVO_PULSE_GPIO[2], timers[2], comparators[2], generators[2]}};
 
-    // MOTORS[3] = (Motor) {"MCPWM1B", (MotorState){MOTSTT_IDLE}, 
-    //                      (MotorAction){MOTACT_NONE}, (MotorError){MOTERR_NO_ERROR, ""},
-    //                      (MotorConfig){CW, SERVO_PULSE_GPIO[3], timers[3], comparators[3], generators[3]}};
+    MOTORS[3] = (Motor) {"MCPWM1B", (MotorState){MOTSTT_IDLE}, 
+                         (MotorAction){MOTACT_NONE}, (MotorError){MOTERR_NO_ERROR, ""},
+                         (MotorConfig){CW, SERVO_PULSE_GPIO[3], timers[3], comparators[3], generators[3]}};
 
 
 

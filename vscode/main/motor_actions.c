@@ -78,7 +78,6 @@ int motor_move_max(MotorConfig* motor_config){
 
 int motor_press(MotorConfig* motor_config){
     int err = 1;
-    printf("here");
     switch(motor_config->direction){
         case CW:
             motor_move_min(motor_config);

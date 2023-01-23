@@ -1,0 +1,19 @@
+{
+    "ip_address": "192.168.1.184",
+    "motor1": {
+        "name" : "MCPWM0A",
+        "button" : "power"
+    },
+    "motor2": {
+        "name" : "MCPWM0B",
+        "button" : "hue"
+    },
+    "motor3": {
+        "name" : "MCPWM1A",
+        "button" : "brighter"
+    },
+    "motor4": {
+        "name" : "MCPWM1B",
+        "button" : "dimmer"
+    }
+}
